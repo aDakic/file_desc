@@ -1,35 +1,30 @@
 #pragma once
+#include <unistd.h>
 
-#include <fcntl.h>
-#include <sys/ioctl.h>
+#include <ranges>
 
-#include <string_view>
-#include <utility>
+#include "file_descriptor_base.hpp"
 
-namespace fd
+namespace fd::sync
 {
-    struct file_descriptor
+    struct file_descriptor : file_descriptor_base
     {
-        using native_handle = int;
+        using file_descriptor_base::file_descriptor_base;
 
-        file_descriptor() noexcept;
-
-        file_descriptor(std::string_view name, int flags, int mode = 0);
-
-        file_descriptor(const file_descriptor& other);
-        file_descriptor(file_descriptor&& other) noexcept;
-        file_descriptor& operator=(const file_descriptor& other);
-        file_descriptor& operator=(file_descriptor&& other) noexcept;
-        ~file_descriptor() noexcept;
-
-        explicit operator bool() const noexcept;
-
-        native_handle handle() const noexcept;
-
-        template<typename... Args>
-        [[nodiscard]] bool ioctl(unsigned long request, Args&&... args) noexcept
+        std::size_t read(std::ranges::contiguous_range auto& range, std::size_t n)
         {
-            const auto error = ::ioctl(request, std::forward<Args>(args)...);
+            const auto num = ::read(handle(), std::ranges::data(range), n);
+            if (num < 0)
+            {
+                throw std::runtime_error{ "Unable to read." };
+            }
+
+            return num;
+        }
+
+        [[nodiscard]] bool ioctl(unsigned long request, const auto&... args) noexcept
+        {
+            const auto error = ::ioctl(request, args...);
             if (error < 0)
             {
                 return false;
@@ -39,8 +34,5 @@ namespace fd
                 return true;
             }
         }
-
-    private:
-        native_handle handle_;
     };
 }  // namespace fd

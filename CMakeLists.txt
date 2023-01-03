@@ -10,10 +10,10 @@ include(cmake/tools.cmake)
 set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR} ${CMAKE_MODULE_PATH})
 set(CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR} ${CMAKE_PREFIX_PATH})
 
-set(headers include/${PROJECT_NAME}/file_descriptor.hpp
-            include/${PROJECT_NAME}/file_desc_concepts.hpp)
+set(headers include/${PROJECT_NAME}/file_descriptor_base.hpp
+include/${PROJECT_NAME}/file_descriptor.hpp)
 
-set(sources src/file_descriptor.cpp)
+set(sources src/file_descriptor_base.cpp)
 
 add_library(${PROJECT_NAME} ${headers} ${sources})
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})

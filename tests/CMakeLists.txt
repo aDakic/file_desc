@@ -1,5 +1,6 @@
 set(test_sources
-    fd_test.cpp)
+    file_descriptor_base_test.cpp
+    file_descriptor_sync_test.cpp)
 
 find_package(Catch2 REQUIRED)
 find_package(fmt REQUIRED)
