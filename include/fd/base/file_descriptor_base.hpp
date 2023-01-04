@@ -2,6 +2,7 @@
 
 #include <fcntl.h>
 #include <sys/ioctl.h>
+#include <unistd.h>
 
 #include <string_view>
 #include <utility>
@@ -25,6 +26,19 @@ namespace fd
         explicit operator bool() const noexcept;
 
         native_handle handle() const noexcept;
+
+        [[nodiscard]] bool ioctl(unsigned long request, const auto&... args) noexcept
+        {
+            const auto error = ::ioctl(request, args...);
+            if (error < 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
 
     private:
         native_handle handle_;

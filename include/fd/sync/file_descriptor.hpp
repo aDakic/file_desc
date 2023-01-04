@@ -1,7 +1,5 @@
 #pragma once
 
-#include <unistd.h>
-
 #include <ranges>
 
 #include "fd/base/file_descriptor_base.hpp"
@@ -33,19 +31,6 @@ namespace fd::sync
             }
 
             return num;
-        }
-
-        [[nodiscard]] bool ioctl(unsigned long request, const auto&... args) noexcept
-        {
-            const auto error = ::ioctl(request, args...);
-            if (error < 0)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
         }
     };
 }  // namespace fd::sync
