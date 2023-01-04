@@ -10,9 +10,15 @@ endif()
 
 if(${PROJECT_NAME}_ENABLE_CLANG_FORMAT)
 file(GLOB_RECURSE ALL_SOURCE_FILES
-  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/*.hpp
-  ${PROJECT_SOURCE_DIR}/src/*.hpp
-  ${PROJECT_SOURCE_DIR}/src/*.cpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/base/*.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/sync/*.hpp
+  ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/async/*.hpp
+  ${PROJECT_SOURCE_DIR}/src/base/*.hpp
+  ${PROJECT_SOURCE_DIR}/src/base/*.cpp
+  ${PROJECT_SOURCE_DIR}/src/sync/*.hpp
+  ${PROJECT_SOURCE_DIR}/src/sync/*.cpp
+  ${PROJECT_SOURCE_DIR}/src/async/*.hpp
+  ${PROJECT_SOURCE_DIR}/src/async/*.cpp
   ${PROJECT_SOURCE_DIR}/tests/*.cpp
 )
 
