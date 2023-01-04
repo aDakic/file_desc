@@ -4,7 +4,7 @@
 
 #include <ranges>
 
-#include "file_descriptor_base.hpp"
+#include "fd/base/file_descriptor_base.hpp"
 
 namespace fd::sync
 {
@@ -23,10 +23,10 @@ namespace fd::sync
             return num;
         }
 
-        std::size_t write(std::ranges::contiguous_range auto&& range)
+        std::size_t write(const std::ranges::contiguous_range auto& range)
         {
             const auto size = std::ranges::size(range);
-            const auto num = ::write(handle(), std::ranges::data(range), size);
+            const auto num  = ::write(handle(), std::ranges::data(range), size);
             if (num == -1 || num != size)
             {
                 throw std::runtime_error{ "Unable to write." };
