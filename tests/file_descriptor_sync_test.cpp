@@ -1,13 +1,12 @@
-#include "fd/file_descriptor.hpp"
-
 #include <deque>
 #include <filesystem>
 #include <vector>
 
 #include "catch2/catch_all.hpp"
+#include "fd/file_descriptor.hpp"
 #include "fmt/core.h"
 
-TEST_CASE("file_descriptor sync read", "[file_descriptor]")
+TEST_CASE("file_descriptor read", "[file_descriptor_sync]")
 {
     const auto path = fmt::format("{}/{}", TEST_RESOURCE_DIR, "test_file.txt");
 
@@ -48,5 +47,18 @@ TEST_CASE("file_descriptor sync read", "[file_descriptor]")
         REQUIRE(arr[1] == 'e');
         REQUIRE(arr[2] == 's');
         REQUIRE(arr[3] == 't');
+    }
+}
+
+TEST_CASE("file_descriptor write", "[file_descriptor_sync]")
+{
+    const auto path = fmt::format("{}/{}", TEST_RESOURCE_DIR, "new_file.txt");
+
+    SECTION("Write the four characters into vector<char>")
+    {
+        fd::sync::file_descriptor file{ path, O_WRONLY };
+        std::vector<char> vec{ 'd', 'a', 't', 'a' };
+
+        file.write(vec);
     }
 }

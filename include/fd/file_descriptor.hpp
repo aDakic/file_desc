@@ -22,6 +22,11 @@ namespace fd::sync
             return num;
         }
 
+        bool write(std::ranges::contiguous_range auto&& range)
+        {
+            const auto num = ::write(handle(), std::ranges::data(range), std::ranges::size(range));
+        }
+
         [[nodiscard]] bool ioctl(unsigned long request, const auto&... args) noexcept
         {
             const auto error = ::ioctl(request, args...);
@@ -35,4 +40,4 @@ namespace fd::sync
             }
         }
     };
-}  // namespace fd
+}  // namespace fd::sync
