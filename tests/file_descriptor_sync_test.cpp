@@ -56,9 +56,27 @@ TEST_CASE("file_descriptor write", "[file_descriptor_sync]")
 
     SECTION("Write the four characters into vector<char>")
     {
-        fd::sync::file_descriptor file{ path, O_WRONLY };
+        fd::sync::file_descriptor file{ path, O_WRONLY | O_CREAT, S_IWUSR }; // NOLINT
         std::vector<char> vec{ 'd', 'a', 't', 'a' };
 
-        file.write(vec);
+        REQUIRE(file.write(vec) == 4);
     }
+
+    SECTION("Write the four characters into std::array<char, 4>")
+    {
+        fd::sync::file_descriptor file{ path, O_WRONLY | O_CREAT, S_IWUSR }; // NOLINT
+        std::array<char, 4> arr{ 'd', 'a', 't', 'a' };
+
+        REQUIRE(file.write(arr) == 4);
+    }
+
+    SECTION("Write the four characters into char[4]")
+    {
+        fd::sync::file_descriptor file{ path, O_WRONLY | O_CREAT, S_IWUSR }; // NOLINT
+        char arr[4]{ 'd', 'a', 't', 'a' };// NOLINT
+
+        REQUIRE(file.write(arr) == 4);
+    }
+
+    std::filesystem::remove(path);
 }
