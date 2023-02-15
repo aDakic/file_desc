@@ -12,7 +12,7 @@ TEST_CASE("file_descriptor read", "[file_descriptor_sync]")
 
     SECTION("Read the first four characters into vector<char>")
     {
-        fd::sync::file_descriptor file{ path, O_RDONLY };
+        fd::sync::file_descriptor file{ path, fd::flags::rdonly };
         std::vector<char> vec{ 4 };
 
         file.read(vec, 4);
@@ -25,7 +25,7 @@ TEST_CASE("file_descriptor read", "[file_descriptor_sync]")
 
     SECTION("Read the first four characters into std::array<char, 4>")
     {
-        fd::sync::file_descriptor file{ path, O_RDONLY };
+        fd::sync::file_descriptor file{ path, fd::flags::rdonly };
         std::array<char, 4> arr{ 4 };
 
         file.read(arr, 4);
@@ -38,7 +38,7 @@ TEST_CASE("file_descriptor read", "[file_descriptor_sync]")
 
     SECTION("Read the first four characters into char[4]")
     {
-        fd::sync::file_descriptor file{ path, O_RDONLY };
+        fd::sync::file_descriptor file{ path, fd::flags::rdonly };
         char arr[4];  // NOLINT
 
         file.read(arr, 4);
@@ -56,7 +56,7 @@ TEST_CASE("file_descriptor write", "[file_descriptor_sync]")
 
     SECTION("Write the four characters into vector<char>")
     {
-        fd::sync::file_descriptor file{ path, O_WRONLY | O_CREAT, S_IWUSR };  // NOLINT
+        fd::sync::file_descriptor file{ path, fd::flags::wronly | fd::flags::creat, S_IWUSR };  // NOLINT
         std::vector<char> vec{ 'd', 'a', 't', 'a' };
 
         REQUIRE(file.write(vec) == 4);
@@ -65,7 +65,7 @@ TEST_CASE("file_descriptor write", "[file_descriptor_sync]")
 
     SECTION("Write the four characters into std::array<char, 4>")
     {
-        fd::sync::file_descriptor file{ path, O_WRONLY | O_CREAT, S_IWUSR };  // NOLINT
+        fd::sync::file_descriptor file{ path, fd::flags::wronly | fd::flags::creat, S_IWUSR };  // NOLINT
         std::array<char, 4> arr{ 'd', 'a', 't', 'a' };
 
         REQUIRE(file.write(arr) == 4);
@@ -73,8 +73,8 @@ TEST_CASE("file_descriptor write", "[file_descriptor_sync]")
 
     SECTION("Write the four characters into char[4]")
     {
-        fd::sync::file_descriptor file{ path, O_WRONLY | O_CREAT, S_IWUSR };  // NOLINT
-        char arr[4]{ 'd', 'a', 't', 'a' };                                    // NOLINT
+        fd::sync::file_descriptor file{ path, fd::flags::wronly | fd::flags::creat, S_IWUSR };  // NOLINT
+        char arr[4]{ 'd', 'a', 't', 'a' };                                                      // NOLINT
 
         REQUIRE(file.write(arr) == 4);
     }

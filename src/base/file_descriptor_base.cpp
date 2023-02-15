@@ -2,15 +2,13 @@
 
 #include <unistd.h>
 
-#include <stdexcept>
-
 namespace fd
 {
     file_descriptor_base::file_descriptor_base() noexcept : handle_{ -1 } { }
 
-    file_descriptor_base::file_descriptor_base(std::string_view name, int flags, int mode)
+    file_descriptor_base::file_descriptor_base(std::string_view name, flags file_flags, int mode)
     {
-        handle_ = ::open(name.data(), flags, mode);  // NOLINT
+        handle_ = ::open(name.data(), to_underlying(file_flags), mode);  // NOLINT
         if (handle_ < 0)
         {
             throw std::runtime_error{ "Unable to open file" };

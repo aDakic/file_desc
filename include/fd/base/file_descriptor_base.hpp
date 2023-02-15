@@ -4,8 +4,11 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
+#include <stdexcept>
 #include <string_view>
 #include <utility>
+
+#include "file_descriptor_flags.hpp"
 
 namespace fd
 {
@@ -15,7 +18,7 @@ namespace fd
 
         file_descriptor_base() noexcept;
 
-        file_descriptor_base(std::string_view name, int flags, int mode = 0);
+        file_descriptor_base(std::string_view name, flags file_flags, int mode = 0);
 
         file_descriptor_base(const file_descriptor_base& other);
         file_descriptor_base(file_descriptor_base&& other) noexcept;

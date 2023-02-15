@@ -9,7 +9,7 @@ const auto path = fmt::format("{}/{}", TEST_RESOURCE_DIR, "test_file.txt");
 
 fd::async::task<std::size_t> get_size()
 {
-    fd::async::file_descriptor fd{ path, O_RDONLY };
+    fd::async::file_descriptor fd{ path, fd::flags::rdonly };
     std::vector<char> vec{ 4 };
 
     auto size = co_await fd.async_read(vec, 4);
