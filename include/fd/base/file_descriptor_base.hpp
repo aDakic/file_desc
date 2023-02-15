@@ -9,6 +9,7 @@
 #include <utility>
 
 #include "file_descriptor_flags.hpp"
+#include "file_descriptor_modes.hpp"
 
 namespace fd
 {
@@ -18,7 +19,7 @@ namespace fd
 
         file_descriptor_base() noexcept;
 
-        file_descriptor_base(std::string_view name, flags file_flags, int mode = 0);
+        file_descriptor_base(std::string_view name, flags file_flags, modes modes = modes::zero);
 
         file_descriptor_base(const file_descriptor_base& other);
         file_descriptor_base(file_descriptor_base&& other) noexcept;

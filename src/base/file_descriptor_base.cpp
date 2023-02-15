@@ -6,9 +6,9 @@ namespace fd
 {
     file_descriptor_base::file_descriptor_base() noexcept : handle_{ -1 } { }
 
-    file_descriptor_base::file_descriptor_base(std::string_view name, flags file_flags, int mode)
+    file_descriptor_base::file_descriptor_base(std::string_view name, flags file_flags, modes modes)
     {
-        handle_ = ::open(name.data(), to_underlying(file_flags), mode);  // NOLINT
+        handle_ = ::open(name.data(), to_underlying(file_flags), to_underlying(modes));  // NOLINT
         if (handle_ < 0)
         {
             throw std::runtime_error{ "Unable to open file" };

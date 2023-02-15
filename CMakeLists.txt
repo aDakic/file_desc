@@ -12,6 +12,7 @@ set(CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR} ${CMAKE_PREFIX_PATH})
 
 set(headers include/${PROJECT_NAME}/base/file_descriptor_base.hpp
             include/${PROJECT_NAME}/base/file_descriptor_flags.hpp
+            include/${PROJECT_NAME}/base/file_descriptor_modes.hpp
             include/${PROJECT_NAME}/sync/file_descriptor.hpp
             include/${PROJECT_NAME}/async/file_descriptor.hpp
             include/${PROJECT_NAME}/async/task.hpp)

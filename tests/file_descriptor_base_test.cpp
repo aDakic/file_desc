@@ -22,8 +22,8 @@ TEST_CASE("file_descriptor_base creation", "[file_descriptor_base]")
     {
         fd::file_descriptor_base new_file_fd;
 
-        REQUIRE_NOTHROW(
-            new_file_fd = fd::file_descriptor_base(new_file_path, fd::flags::wronly | fd::flags::creat, S_IWUSR));  // NOLINT
+        REQUIRE_NOTHROW(new_file_fd = fd::file_descriptor_base(new_file_path, fd::flags::wronly | fd::flags::creat,
+                                                               fd::modes::iwusr));  // NOLINT
     }
 
     std::filesystem::remove(new_file_path);
